@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>GoEasy Tools Online | AI Productivity Suite</title>
+    <meta name="description" content="GoEasy Tools Online: Next-gen AI platform for image editing, calculations, conversions, and text processing. Fast, modern, and secure.">
+    <meta name="keywords" content="AI tools, image tools, calculation, conversion, text AI, productivity, GoEasy">
+    <meta name="author" content="GoEasy Team">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.goeasytools.online/">
+    <!-- Open Graph / Social -->
+    <meta property="og:title" content="GoEasy Tools Online - Next Generation AI Productivity">
+    <meta property="og:description" content="Instant AI tools for images, calculation, conversion, and text. Boost your workflow.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.goeasytools.online/og-image.jpg">
+    <meta property="og:url" content="https://www.goeasytools.online/">
+    <!-- Favicon (placeholder) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f0ff'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/%3E%3C/svg%3E">
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050b14;
+            color: #eef5ff;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* neon accent colors */
+        :root {
+            --neon-blue: #00f0ff;
+            --neon-lavender: #b266ff;
+            --dark-bg: #0a0f1a;
+            --card-bg: rgba(12, 20, 30, 0.75);
+            --glow: 0 0 8px rgba(0, 240, 255, 0.3);
+            --border-light: rgba(0, 240, 255, 0.2);
+        }
+
+        /* custom scroll */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0f1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-blue);
+            border-radius: 8px;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* header */
+        .header {
+            backdrop-filter: blur(12px);
+            background: rgba(5, 11, 20, 0.85);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-light);
+            padding: 16px 0;
+        }
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-lavender));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: #ccddf8;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover {
+            color: var(--neon-blue);
+            text-shadow: 0 0 5px var(--neon-blue);
+        }
+        .cta-header {
+            background: linear-gradient(95deg, var(--neon-blue), #7a4aff);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 700;
+            color: #0a0f1a;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.9rem;
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+        }
+        .cta-header:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 18px rgba(0, 240, 255, 0.7);
+        }
+
+        /* hero section with animated node graph */
+        .hero {
+            position: relative;
+            padding: 100px 0 80px;
+            overflow: hidden;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .hero h1 {
+            font-size: 3.4rem;
+            font-weight: 800;
+            background: linear-gradient(125deg, #ffffff, var(--neon-blue), var(--neon-lavender));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #b9c8ff;
+            margin-bottom: 32px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        .btn-primary {
+            background: var(--neon-blue);
+            color: #051022;
+            padding: 12px 32px;
+            border-radius: 48px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.2s;
+            box-shadow: 0 4px 14px rgba(0, 240, 255, 0.3);
+        }
+        .btn-secondary {
+            background: transparent;
+            border: 1.5px solid var(--neon-lavender);
+            color: var(--neon-lavender);
+            padding: 12px 32px;
+            border-radius: 48px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .btn-secondary:hover {
+            background: rgba(178, 102, 255, 0.1);
+            box-shadow: 0 0 12px rgba(178, 102, 255, 0.4);
+        }
+        .bookmark-btn {
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 10px 24px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+        .bookmark-btn:hover {
+            background: rgba(0,240,255,0.2);
+        }
+
+        /* canvas node graph */
+        #node-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* section headers */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 48px;
+            text-align: center;
+            background: linear-gradient(135deg, #fff, var(--neon-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* category cards grid */
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 32px;
+            margin-bottom: 70px;
+        }
+        .category-card {
+            background: rgba(10, 20, 30, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            padding: 28px 20px;
+            border: 1px solid rgba(0, 240, 255, 0.25);
+            transition: all 0.3s ease;
+        }
+        .category-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--neon-blue);
+            box-shadow: 0 12px 28px rgba(0, 240, 255, 0.15);
+        }
+        .category-icon {
+            font-size: 2.8rem;
+            color: var(--neon-lavender);
+            margin-bottom: 16px;
+        }
+        .category-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+        .category-card p {
+            color: #b0c6f0;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        .explore-link {
+            color: var(--neon-blue);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* featured tools 3 cards */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0 60px;
+        }
+        .tool-card {
+            background: rgba(8, 16, 26, 0.8);
+            border-radius: 28px;
+            padding: 28px;
+            border: 1px solid rgba(178, 102, 255, 0.3);
+            transition: 0.25s;
+        }
+        .tool-card:hover {
+            border-color: var(--neon-blue);
+        }
+        .tool-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+        .tool-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+        .use-btn {
+            margin-top: 20px;
+            background: transparent;
+            border: 1px solid var(--neon-blue);
+            padding: 8px 18px;
+            border-radius: 40px;
+            color: var(--neon-blue);
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-block;
+        }
+
+        /* advertisement boxes */
+        .ad-space {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 24px;
+            padding: 16px;
+            text-align: center;
+            margin: 50px 0;
+            border: 1px dashed rgba(0,240,255,0.4);
+        }
+        .ad-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #7e8aa8;
+            margin-bottom: 12px;
+        }
+
+        /* testimonial carousel */
+        .testimonial-section {
+            margin: 60px 0;
+        }
+        .carousel-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 32px;
+            background: rgba(6, 12, 22, 0.7);
+            backdrop-filter: blur(8px);
+            padding: 32px 24px;
+            border: 1px solid var(--border-light);
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.4s ease;
+        }
+        .testimonial-card {
+            min-width: 100%;
+            padding: 12px;
+            text-align: center;
+        }
+        .testimonial-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #d4e2ff;
+        }
+        .testimonial-author {
+            margin-top: 20px;
+            font-weight: 700;
+            color: var(--neon-lavender);
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,240,255,0.2);
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--neon-blue);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+        .prev {
+            left: 12px;
+        }
+        .next {
+            right: 12px;
+        }
+        .dots {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #3a4a70;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .dot.active {
+            background: var(--neon-blue);
+            box-shadow: 0 0 8px cyan;
+        }
+
+        /* footer */
+        .footer {
+            background: #03070f;
+            border-top: 1px solid #1e2a3a;
+            padding: 48px 0 24px;
+            margin-top: 60px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 36px;
+            margin-bottom: 40px;
+        }
+        .footer-col h4 {
+            color: var(--neon-blue);
+            margin-bottom: 16px;
+        }
+        .footer-col a, .footer-col p {
+            display: block;
+            color: #b0c4f0;
+            text-decoration: none;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+        .newsletter input {
+            background: #0f1a24;
+            border: 1px solid #2c4058;
+            padding: 10px;
+            border-radius: 30px;
+            width: 100%;
+            color: white;
+            margin-bottom: 10px;
+        }
+        .social-icons i {
+            font-size: 1.4rem;
+            margin-right: 16px;
+            color: var(--neon-lavender);
+        }
+        .copyright {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #5a6e8a;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .nav-container { flex-direction: column; }
+            .nav-links { justify-content: center; }
+            .section-title { font-size: 1.8rem; }
+        }
+        @media (max-width: 480px) {
+            .hero-buttons { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container nav-container">
+        <div class="logo">⚡ GoEasy Tools Online</div>
+        <div class="nav-links">
+            <a href="#categories">Categories</a>
+            <a href="#">API Access</a>
+            <a href="#">Blog</a>
+            <a href="#">Pricing</a>
+            <button class="cta-header" id="tryNowBtn">Try GoEasy AI Tools</button>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- Hero Section -->
+    <section class="hero">
+        <canvas id="node-canvas"></canvas>
+        <div class="container hero-content">
+            <h1>The Next Generation of AI Productivity.</h1>
+            <p>Instant AI Tools for Images, Calculation, Conversion, and Text.</p>
+            <div class="hero-buttons">
+                <a href="#categories" class="btn-primary">Explore Tools</a>
+                <a href="#" id="viewApiBtn" class="btn-secondary">View API</a>
+                <a href="#" id="bookmarkHyperlink" class="bookmark-btn"><i class="fas fa-bookmark"></i> Bookmark</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Section (grid 4) -->
+    <div class="container" id="categories">
+        <h2 class="section-title">AI Tool Suites</h2>
+        <div class="grid-4">
+            <!-- Image Tools Card -->
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-image"></i></div>
+                <h3>Image Tools</h3>
+                <p>Generative art, background removal, upscaling, compression, AI editor</p>
+                <a href="/image-tools" class="explore-link">Explore Image Tools →</a>
+            </div>
+            <!-- Calculation Tools Card -->
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-calculator"></i></div>
+                <h3>Calculation Tools</h3>
+                <p>Distance, speed, predictive analytics, scientific calculator, data analysis</p>
+                <a href="/calculation-tools" class="explore-link">Explore Calculation →</a>
+            </div>
+            <!-- Conversion Tools Card -->
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-exchange-alt"></i></div>
+                <h3>Conversion Tools</h3>
+                <p>File & unit converter, currency, code translation, length/weight</p>
+                <a href="/conversion-tools" class="explore-link">Explore Conversion →</a>
+            </div>
+            <!-- Text Tools Card -->
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-file-alt"></i></div>
+                <h3>Text Tools</h3>
+                <p>Summarization, SEO generation, character count, auto-capitalization</p>
+                <a href="/text-tools" class="explore-link">Explore Text Tools →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ad Space #1 (Google AdSense Integration) -->
+    <div class="container ad-space" id="adSpot1">
+        <div class="ad-label">Advertisement</div>
+        <div class="adsense-placeholder" id="adsense-container-1" style="min-height: 90px;">
+            <!-- AdSense ad code will be injected dynamically via config -->
+            <div style="background:#0b1422; border-radius: 12px; padding: 12px; color:#6e85b0;">[ AdSpace: Google AdSense ready - replace with Ad Unit ID ]</div>
+        </div>
+    </div>
+
+    <!-- Featured Tools Section -->
+    <div class="container">
+        <h2 class="section-title">Most Popular Tools</h2>
+        <div class="featured-grid">
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-palette"></i></div>
+                <h4>AI Art Generator</h4>
+                <p>Create stunning generative art and remove backgrounds in seconds.</p>
+                <button class="use-btn">Use Tool →</button>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-code-branch"></i></div>
+                <h4>Code Language Translator</h4>
+                <p>Convert code between Python, JS, Java, and more with AI precision.</p>
+                <button class="use-btn">Use Tool →</button>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-chart-line"></i></div>
+                <h4>Predictive Analytics</h4>
+                <p>Formula generation, data analysis and forecasting instantly.</p>
+                <button class="use-btn">Use Tool →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials Carousel Section -->
+    <div class="container testimonial-section">
+        <h2 class="section-title">Trusted by Creators Worldwide</h2>
+        <div class="carousel-container">
+            <div class="carousel-track" id="carouselTrack">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">“GoEasy Tools transformed my daily workflow. The image upscaling and text summarization are incredibly fast.”</p>
+                    <p class="testimonial-author">— Sarah K., Product Designer</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">“The conversion suite saved hours of manual work. Unit & file conversion with AI translation is a game-changer.”</p>
+                    <p class="testimonial-author">— Miguel R., Data Analyst</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">“Best AI platform I've tried. Clean interface, powerful calculators, and API access is smooth.”</p>
+                    <p class="testimonial-author">— Aisha L., Developer</p>
+                </div>
+            </div>
+            <button class="carousel-btn prev" id="prevBtn">❮</button>
+            <button class="carousel-btn next" id="nextBtn">❯</button>
+            <div class="dots" id="dotsContainer"></div>
+        </div>
+    </div>
+
+    <!-- Ad Space #2 -->
+    <div class="container ad-space" id="adSpot2">
+        <div class="ad-label">Sponsored</div>
+        <div class="adsense-placeholder" id="adsense-container-2" style="min-height: 90px;">
+            <div style="background:#0b1422; border-radius: 12px; padding: 12px; color:#6e85b0;">[ AdSpace: Google AdSense integration ready ]</div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>GoEasy Tools</h4>
+                <a href="#">About Us</a>
+                <a href="#">Contact Us</a>
+                <a href="mailto:imranhotiana@gmail.com"><i class="far fa-envelope"></i> imranhotiana@gmail.com</a>
+                <div class="social-icons" style="margin-top: 12px;">
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-linkedin"></i>
+                    <i class="fab fa-github"></i>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Site Map</h4>
+                <a href="#">Categories</a>
+                <a href="#">API Access</a>
+                <a href="#">Blog</a>
+                <a href="#">Pricing</a>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+            <div class="footer-col newsletter">
+                <h4>Newsletter</h4>
+                <input type="email" placeholder="Your email" id="newsEmail">
+                <button class="cta-header" style="padding: 8px 16px; font-size:0.8rem;" id="subscribeNews">Subscribe</button>
+            </div>
+        </div>
+        <div class="copyright">© 2025 GoEasy Tools Online — AI productivity suite. All rights reserved.</div>
+    </div>
+</footer>
+
+<script>
+    // ========== 1) Animated Node Graph (Hero Background) ==========
+    const canvas = document.getElementById('node-canvas');
+    let ctx, width, height, nodes = [], animationId;
+    const nodeCount = 45;
+    function initCanvas() {
+        if(!canvas) return;
+        ctx = canvas.getContext('2d');
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        createNodes();
+        animateNodes();
+    }
+    function resizeCanvas() {
+        const hero = canvas.parentElement;
+        const rect = hero.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+        width = canvas.width;
+        height = canvas.height;
+    }
+    function createNodes() {
+        nodes = [];
+        for (let i = 0; i < nodeCount; i++) {
+            nodes.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.6,
+                vy: (Math.random() - 0.5) * 0.4,
+                radius: 1.5 + Math.random() * 3
+            });
+        }
+    }
+    function drawNodes() {
+        if(!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        ctx.strokeStyle = 'rgba(0, 240, 255, 0.25)';
+        ctx.lineWidth = 0.6;
+        for (let i = 0; i < nodes.length; i++) {
+            let node = nodes[i];
+            node.x += node.vx;
+            node.y += node.vy;
+            if (node.x < -20) node.x = width + 20;
+            if (node.x > width + 20) node.x = -20;
+            if (node.y < -20) node.y = height + 20;
+            if (node.y > height + 20) node.y = -20;
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(178, 102, 255, 0.7)`;
+            ctx.fill();
+            for (let j = i+1; j < nodes.length; j++) {
+                const other = nodes[j];
+                const dx = node.x - other.x;
+                const dy = node.y - other.y;
+                const dist = Math.hypot(dx, dy);
+                if (dist < 110) {
+                    ctx.beginPath();
+                    ctx.moveTo(node.x, node.y);
+                    ctx.lineTo(other.x, other.y);
+                    ctx.strokeStyle = `rgba(0, 200, 255, ${0.2 * (1 - dist/110)})`;
+                    ctx.stroke();
+                }
+            }
+        }
+        animationId = requestAnimationFrame(drawNodes);
+    }
+    function animateNodes() {
+        if (!ctx) return;
+        drawNodes();
+    }
+    if(canvas) initCanvas();
+
+    // ========== 2) Smooth Scroll + CTA interactions ==========
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if(targetId && targetId !== "#" && targetId.startsWith('#')) {
+                const target = document.querySelector(targetId);
+                if(target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    });
+    document.getElementById('tryNowBtn')?.addEventListener('click', () => {
+        alert('✨ Welcome to GoEasy AI Tools! Full access demo. Explore all categories below.');
+    });
+    document.getElementById('viewApiBtn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert('📡 API Documentation & Access keys - Coming soon. Stay tuned for developer portal.');
+    });
+    // Bookmark button with hyperlink (bookmark functionality)
+    const bookmarkLink = document.getElementById('bookmarkHyperlink');
+    if(bookmarkLink) {
+        bookmarkLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (window.sidebar && window.sidebar.addPanel) { // Firefox old
+                window.sidebar.addPanel(document.title, window.location.href, '');
+            } else if (window.external && ('AddFavorite' in window.external)) { // IE
+                window.external.AddFavorite(location.href, document.title);
+            } else {
+                alert('★ Press Ctrl+D (Windows/Linux) or Cmd+D (Mac) to bookmark this page.');
+            }
+        });
+    }
+
+    // ========== 3) Testimonials Carousel ==========
+    const track = document.getElementById('carouselTrack');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsContainer = document.getElementById('dotsContainer');
+    let slides = Array.from(document.querySelectorAll('.testimonial-card'));
+    let currentIndex = 0;
+    let slideCount = slides.length;
+    function updateCarousel() {
+        if(track) track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        document.querySelectorAll('.dot').forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === currentIndex);
+        });
+    }
+    function createDots() {
+        if(!dotsContainer) return;
+        dotsContainer.innerHTML = '';
+        for(let i=0; i<slideCount; i++) {
+            const dot = document.createElement('span');
+            dot.classList.add('dot');
+            if(i===currentIndex) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                currentIndex = i;
+                updateCarousel();
+            });
+            dotsContainer.appendChild(dot);
+        }
+    }
+    if(prevBtn && nextBtn && track) {
+        createDots();
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+            updateCarousel();
+        });
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % slideCount;
+            updateCarousel();
+        });
+    }
+
+    // ========== 4) Newsletter Signup ==========
+    const subscribeBtn = document.getElementById('subscribeNews');
+    const emailInput = document.getElementById('newsEmail');
+    subscribeBtn?.addEventListener('click', () => {
+        if(emailInput.value.includes('@') && emailInput.value.includes('.')) {
+            alert(`Thank you! ${emailInput.value} has been subscribed to GoEasy newsletter.`);
+            emailInput.value = '';
+        } else alert('Please enter a valid email address.');
+    });
+
+    // ========== 5) Google AdSense Integration (easy Ad Unit ID insertion) ==========
+    // Config: replace with your AdSense client ID and slot IDs for two ad spots.
+    // You can set ADSENSE_CLIENT = "ca-pub-XXXXXXXXXXXXXXXX" and provide ad slots.
+    window.goEasyAdConfig = {
+        client: "ca-pub-0000000000000000",   // Replace with your AdSense publisher ID
+        adSlots: {
+            spot1: "1234567890",              // replace with actual ad slot ID
+            spot2: "0987654321"
+        }
+    };
+    function initAdsense() {
+        // if client is not placeholder, inject AdSense script and ad units dynamically.
+        const config = window.goEasyAdConfig;
+        if(config.client && config.client !== "ca-pub-0000000000000000") {
+            // load AdSense script
+            const script = document.createElement('script');
+            script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${config.client}`;
+            script.crossOrigin = "anonymous";
+            script.async = true;
+            document.head.appendChild(script);
+            // replace ad containers with actual ins elements
+            const container1 = document.getElementById('adsense-container-1');
+            const container2 = document.getElementById('adsense-container-2');
+            if(container1) {
+                container1.innerHTML = `<ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="${config.client}"
+                    data-ad-slot="${config.adSlots.spot1}"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>`;
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            }
+            if(container2) {
+                container2.innerHTML = `<ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="${config.client}"
+                    data-ad-slot="${config.adSlots.spot2}"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>`;
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            }
+        } else {
+            console.log("Ads ready: insert your AdSense ID in goEasyAdConfig.");
+        }
+    }
+    // Defer adsense initialization after DOM ready
+    window.addEventListener('load', () => {
+        initAdsense();
+        // Re-apply any dynamic resize for canvas if needed
+        if(canvas && window.innerWidth) resizeCanvas();
+    });
+    // additionally interactive hover / Explore Tools redirect demo
+    document.querySelectorAll('.use-btn').forEach(btn => {
+        btn.addEventListener('click', () => alert('🚀 Tool launching soon! Experience full AI power.'));
+    });
+    document.querySelectorAll('.explore-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            // Allow actual navigation to subpages (simulate/placeholder)
+            if(link.getAttribute('href') !== '#') return;
+            e.preventDefault();
+            alert('Category page under construction. Soon available.');
+        });
+    });
+</script>
+</body>
+</html>
